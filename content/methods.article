@@ -1,78 +1,73 @@
-Methods and interfaces
-This lesson covers methods and interfaces, the constructs that define objects and their behavior.
+الوظائف والواجهات
+هذا الدرس يغطي الوظائف والواجهات: المكونات التي تعرف الأشياء وتصرفها.
 
-The Go Authors
+مؤلفو Go
 https://golang.org
 
-* Methods
+* الوظائف
 
-Go does not have classes.
-However, you can define methods on types.
+Go لا تحتوى على أصناف.
+ولكن بإمكانك تعريف الوظائف على الأنواع.
 
-A method is a function with a special _receiver_ argument.
+الوظيفة هي دالة لها معطى ـمستقبلـ خاص.
 
-The receiver appears in its own argument list between the `func` keyword and
-the method name.
+المستقبل يظهر في قائمة معطيات خاصة به بين كلمة `func` واسم الوظيفة.
 
-In this example, the `Abs` method has a receiver of type `Vertex` named `v`.
+في هذا المثال وظيفة `Abs` لها مستقبل من نوع `Vertex` اسمه `v`.
 
 .play methods/methods.go
 
-* Methods are functions
+* الوظائف هي دوال
 
-Remember: a method is just a function with a receiver argument.
+تذكر: الوظيفة هي دالة لها مستقبل معطى.
 
-Here's `Abs` written as a regular function with no change in functionality.
+هنا `Abs` مكتوبة كدالة عادية بدون تغير في عملها.
 
 .play methods/methods-funcs.go
 
-* Methods continued
+* تابع الوظائف
 
-You can declare a method on non-struct types, too.
+بلإمكانك إعلان وظيفة على الأنواع غير التراكيب.
 
-In this example we see a numeric type `MyFloat` with an `Abs` method.
+في هذا المثال نرى نوع رقمي  `MyFloat` له وظيفة `Abs`.
 
-You can only declare a method with a receiver whose type is defined in the same
-package as the method.
-You cannot declare a method with a receiver whose type is defined in another
-package (which includes the built-in types such as `int`).
+لا يمكنك إعلان وظيفة بمستقبل إلا إذا كان نوع المستقبل معرف في نفس الحزمة.
+لا يمكنك إعلان وظيفة بمستقبل معرف في رمز آخرى (هذا يتضمن الأنواع المضمنة مثل `int`).
 
 .play methods/methods-continued.go
 
-* Pointer receivers
+* المستقبلات المؤشرات
 
-You can declare methods with pointer receivers.
+بإمكانك إعلان وظيفة بمستقبل مؤشر.
 
-This means the receiver type has the literal syntax `*T` for some type `T`.
-(Also, `T` cannot itself be a pointer such as `*int`.)
+هذا يعني أن نوع المستقبل له الصيغة الحرفية `*T` لنوع `T`.
+(أيضًا، `T` لا يمكن أن يكون مؤشرًا مثل `*int`.)
 
-For example, the `Scale` method here is defined on `*Vertex`.
+مثلًا: الوظيفة `Scale` معرف على `*Vertex`.
 
-Methods with pointer receivers can modify the value to which the receiver
-points (as `Scale` does here).
-Since methods often need to modify their receiver, pointer receivers are more
-common than value receivers.
+الوظائف المعرفة على مؤشرات بإمكانها تعديل القيمة التي يؤشر عليها
+المستقبل (كما تفعل `Scale` هنا).
+بما أن الوظائف تحتاج عادة للتعديل على المستقبل، المستقبلات المؤشرات أكثر
+شيوعًا من المستقبلات القيم.
 
-Try removing the `*` from the declaration of the `Scale` function on line 16
-and observe how the program's behavior changes.
+جرب إزالة الـ`*` من إعلان دالة `Scale` في سطر 16 وراقب كيف يتغير تصرف البرنامج.
 
-With a value receiver, the `Scale` method operates on a copy of the original
-`Vertex` value.
-(This is the same behavior as for any other function argument.)
-The `Scale` method must have a pointer receiver to change the `Vertex` value
-declared in the `main` function.
+باستخدام مستقبل قيمة، وظيفة `Scale` تتعامل مع نسخة من قيمة `Vertex` الأصلية.
+(هذا نفس التصرف لأي معطى دالة.)
+طريقة `Scale` يجب أن تكون على مستقبل مؤشر لتغير قيمة`Vertex` المعلنة في دالة `main`.
 
 .play methods/methods-pointers.go
 
-* Pointers and functions
+* المؤشرات والدوال
 
-Here we see the `Abs` and `Scale` methods rewritten as functions.
+لقد أعدنا كتابة الطريقتين `Abs` و `Scale` كدوال.
 
-Again, try removing the `*` from line 16.
-Can you see why the behavior changes?
-What else did you need to change for the example to compile?
+مجددًا، جرب أن تزيل الـ `*` من سطر 16.
+هل تستطيع معرفة لماذا تغير تصرف البرنامج؟
+ماذا ينبغي أن نغير أيضًا لنتمكن من ترجمة البرنامج؟
 
-(If you're not sure, continue to the next page.)
+
+(إذا لم تكن متأكدًا، أكمل للصفحة التالي.)
 
 .play methods/methods-pointers-explained.go
 
@@ -338,50 +333,47 @@ Change your `Sqrt` function to return an `ErrNegativeSqrt` value when given a ne
 
 .play methods/exercise-errors.go
 
-* Readers
+* القراء (Readers)
 
-The `io` package specifies the `io.Reader` interface,
-which represents the read end of a stream of data.
+حزمة `io` تحدد واجهة `io.Reader` التي تمثل طرف القراءة من دفق بيانات.
 
-The Go standard library contains [[https://golang.org/search?q=Read#Global][many implementations]] of these interfaces, including files, network connections, compressors, ciphers, and others.
+المكتبة المعيارية في Go تحتوي على [[https://golang.org/search?q=Read#Global][تطبيقات كثيرة]] لهذه الواجهات، تتضمن الملفات واتصالات الشبكة والضاغطات والشفرات وأشياء آخرى.
 
-The `io.Reader` interface has a `Read` method:
+واجهة `io.Reader` لديها وظيفة `Read`:
 
 	func (T) Read(b []byte) (n int, err error)
 
-`Read` populates the given byte slice with data and returns the number of bytes
-populated and an error value. It returns an `io.EOF` error when the stream
-ends.
+`Read` تملأ شريحة البايتات بالبيانات وترجع عدد البايتات المعبئة وقيمة خطأ.
+عندما ينتهي الدفق الخطأ سيكون `io.EOF`.
 
-The example code creates a
+هذا المثال ينشئ
 [[//golang.org/pkg/strings/#Reader][`strings.Reader`]]
-and consumes its output 8 bytes at a time.
+ويستهلك 8 بت من مخرجاته في كل مرة.
 
 .play methods/reader.go
 
-* Exercise: Readers
+* تمرين: القراء
 
-Implement a `Reader` type that emits an infinite stream of the ASCII character
-`'A'`.
+طبق نوع `Reader` يخرج دفق لا نهائي من حرف ASCII `'A'`.
 
 .play methods/exercise-reader.go
 
-* Exercise: rot13Reader
+* تمرين: rot13Reader
 
-A common pattern is an [[https://golang.org/pkg/io/#Reader][io.Reader]] that wraps another `io.Reader`, modifying the stream in some way.
+من الأنماط المتكررة [[https://golang.org/pkg/io/#Reader][io.Reader]] يحيط بـ`io.Reader` آخر، معدلًا الدفق بطريقة ما.
 
-For example, the [[https://golang.org/pkg/compress/gzip/#NewReader][gzip.NewReader]] function takes an `io.Reader` (a stream of compressed data) and returns a `*gzip.Reader` that also implements `io.Reader` (a stream of the decompressed data).
+على سبيل المثال، دالة [[https://golang.org/pkg/compress/gzip/#NewReader][gzip.NewReader]] تأخذ `io.Reader` (دفق من البيانات المضغوطة) وترجع `*gzip.Reader` يطبق `io.Reader` (دفق من البيانات مفكوكة الضغط).
 
-Implement a `rot13Reader` that implements `io.Reader` and reads from an `io.Reader`, modifying the stream by applying the [[https://en.wikipedia.org/wiki/ROT13][rot13]] substitution cipher to all alphabetical characters.
+طبّق `rot13Reader` يطبق `io.Reader` ويقرأ من `io.Reader`، معدلًا على الدفق بتنفيذ شفرة [[https://en.wikipedia.org/wiki/ROT13][rot13]] التبدالية لكل الحروف الهجائية.
 
-The `rot13Reader` type is provided for you.
-Make it an `io.Reader` by implementing its `Read` method.
+نوع `rot13Reader` مقدم لك.
+اجعله `io.Reader` بتطبيق وظيفة `Read`.
 
 .play methods/exercise-rot-reader.go
 
-* Images
+* الصور
 
-[[https://golang.org/pkg/image/#Image][Package image]] defines the `Image` interface:
+[[https://golang.org/pkg/image/#Image][حزمة image]] تعرف واجهة `Image`:
 
 	package image
 
@@ -391,32 +383,34 @@ Make it an `io.Reader` by implementing its `Read` method.
 		At(x, y int) color.Color
 	}
 
-*Note*: the `Rectangle` return value of the `Bounds` method is actually an
-[[https://golang.org/pkg/image/#Rectangle][`image.Rectangle`]], as the
-declaration is inside package `image`.
+*ملاحظة*: نوع المرجع `Rectangle` لوظيفة `Bounds` هو فعليًا
+[[https://golang.org/pkg/image/#Rectangle][`image.Rectangle`]]،
+لأن الإعلان في داخل حزمة `image`.
 
-(See [[https://golang.org/pkg/image/#Image][the documentation]] for all the details.)
+(اطلع على [[https://golang.org/pkg/image/#Image][التوثيق]] لجميع التفاصيل.)
 
-The `color.Color` and `color.Model` types are also interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`. These interfaces and types are specified by the [[https://golang.org/pkg/image/color/][image/color package]]
+الأنواع `color.Color` و `color.Model` هي أيضًا واجهات، ولكن سنتجاهل ذلك باستخدام التطبيقات `color.RGBA` و `color.RGBAModel`.
+هذه الواجهات والأنواع محددة من [[https://golang.org/pkg/image/color/][حزمة image/color]]
 
 .play methods/images.go
 
-* Exercise: Images
+* تمرين: الصور
 
-Remember the picture generator you wrote earlier? Let's write another one, but this time it will return an implementation of `image.Image` instead of a slice of data.
+هل تذكر مولد الصور الذي كتبت مسبقًا؟
+لنكتب مولدًا آخرًا، ولكن هذه المرة سيرجع  تطبيق لـ `image.Image` بدلًا من شريحة بيانات.
 
-Define your own `Image` type, implement [[https://golang.org/pkg/image/#Image][the necessary methods]], and call `pic.ShowImage`.
+عرف نوع `Image` وطبق [[https://golang.org/pkg/image/#Image][الوظائف المطلوبة]]، واستدع `pic.ShowImage`.
 
-`Bounds` should return a `image.Rectangle`, like `image.Rect(0,`0,`w,`h)`.
+`Bounds` ينبغى أن ترجع `image.Rectangle`، مثل `image.Rect(0,`0,`w,`h)`.
 
-`ColorModel` should return `color.RGBAModel`.
+`ColorModel` ينبغي أن ترجع `color.RGBAModel`.
 
-`At` should return a color; the value `v` in the last picture generator corresponds to `color.RGBA{v,`v,`255,`255}` in this one.
+`At` ينبغي أن ترجع `color.Color`؛ قيمة `v` في مولد الصور الأخير تتماثل مع `color.RGBA{v,`v,`255,`255}` في هذا المولد.
 
 .play methods/exercise-images.go
 
-* Congratulations!
+* مبروك!
 
-You finished this lesson!
+لقد انهيت هذا الدرس!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+بإمكانك العودة إلى  [[/list][القائمة]] لتختار ما تتعلمه، أو الاستمرار مع [[javascript:click('.next-page')][الدرس التالي]].

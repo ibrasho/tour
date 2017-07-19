@@ -1,131 +1,130 @@
-Packages, variables, and functions.
-Learn the basic components of any Go program.
+الحزم والمتغيرات والدوال.
+تعرف على المكونات الأساسية لأي برنامج Go.
 
-The Go Authors
+مؤلفو Go
 https://golang.org
 
-* Packages
+* الحزم
 
-Every Go program is made up of packages.
+كل برنامج Go مكون من عدة حزم.
 
-Programs start running in package `main`.
+البرامج تبدأ في الحزمة `main`.
 
-This program is using the packages with import paths `"fmt"` and `"math/rand"`.
+هذا البرنامج يستخدم الحزم التي مسار استيرادها `"fmt"` و `"math/rand"`.
 
-By convention, the package name is the same as the last element of the import path. For instance, the `"math/rand"` package comprises files that begin with the statement `package`rand`.
+عرفيًا، اسم الحزمة هو آخر جزء في مسار الاستيراد. مثال: حزمة `"math/rand"` تتكون من ملفات تبدأ بالعبارة `package`rand`.
 
-#appengine: *Note:* the environment in which these programs are executed is
-#appengine: deterministic, so each time you run the example program
-#appengine: `rand.Intn` will return the same number.
-#appengine:
-#appengine: (To see a different number, seed the number generator; see [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].
-#appengine: Time is constant in the playground, so you will need to use something else as the seed.)
+#appengine: *ملاحظة:* البيئة التي تنفذ فيها هذه البرامج حتمية،
+#appengine: ولذا `rand.Intn` سترجع نفس القيمة في كل مرة تنفذ البرنامج.
+#appengine: (لتحصل على قيم مختلفة، أعط مولد الأرقام بذرة مختلفة× اطلع على see [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].
+#appengine: الوقت ثابت في ساحة اللعب، ولا ستحتاج شيء مختلف كبذرة للمولد.)
 
 .play basics/packages.go
 
-* Imports
+* الاستيراد
 
-This code groups the imports into a parenthesized, "factored" import statement.
+تستخدم العبارة `import` لاستيراد الحزم. ويمكن استخدامها لاستيراد عدة حزم مرة واحدة أو استيراد كل حزمة على حدة.
 
-You can also write multiple import statements, like:
+مثلًا، هذا الكود يجمع الاستيرادات في عبارة `import` واحدة مجمعة ومحاطة بأقواس.
+
+بإمكانك أيضًا كتابة عدة عبارات `import` متتالية، مثلًا:
 
 	import "fmt"
 	import "math"
 
-But it is good style to use the factored import statement.
+لكن استخدام عبارة الاستيراد المجمعة يعتبر من الأساليب الجيدة.
 
 .play basics/imports.go
 
-* Exported names
+* المعرّفات المصدّرة
 
-In Go, a name is exported if it begins with a capital letter.
-For example, `Pizza` is an exported name, as is `Pi`, which is exported from
-the `math` package.
+في Go, المعرّف يصدّر إذا كان يبدأ بحرف كبير.
+مثلًا، `Pizza` معرّف مصدّر، وكذلك `Pi` المصدر من حزمة `math`.
 
-`pizza` and `pi` do not start with a capital letter, so they are not exported.
+`pizza` و `pi` لا تبدأ بحروف كبيرة، ولذا فهي غير مصدرة.
 
-When importing a package, you can refer only to its exported names.
-Any "unexported" names are not accessible from outside the package.
+عندما تستورد حزمة، بإمكانك الإحالة على المعرّفات المصدّرة فقط.
+أي معرّف "غير مصدّر" لا يمكن الوصول له من خارج الحزمة.
 
-Run the code. Notice the error message.
+شغل الكود وانتبه لرسالة الخطأ.
 
-To fix the error, rename `math.pi` to `math.Pi` and try it again.
+لتصليح الخطأ غير `math.pi` إلى `math.Pi` وحاول مجددًا.
 
 .play basics/exported-names.go
 
-* Functions
+* الدوال
 
-A function can take zero or more arguments.
+الدالة من الممكن أن تكون بدون معطيات، أو أن تأخذ معطى أو أكثر.
 
-In this example, `add` takes two parameters of type `int`.
+في هذا المثال، `add` تأخذ معطيين من نوع `int`.
 
-Notice that the type comes _after_ the variable name.
+انتبه لكون النوع يأتي بعد اسم المتغير.
 
-(For more about why types look the way they do, see the [[https://blog.golang.org/gos-declaration-syntax][article on Go's declaration syntax]].)
+(لمعرفة المزيد عن أسباب كون الأنواع تعرف بهذه الطريقة، اطلع على [[https://blog.golang.org/gos-declaration-syntax][المقالة حول صيغة الإعلان في Go]].)
 
 .play basics/functions.go
 
-* Functions continued
+* الدوال (تابع )
 
-When two or more consecutive named function parameters share a type, you can omit the type from all but the last.
+عندما يتشارك معطيات متتاليان في النوع، يمكن إسقاط النوع من جميع المعطيات قبل الأخير.
 
-In this example, we shortened
+في هذا المثال اختصرنا
 
 	x int, y int
 
-to
+إلى
 
 	x, y int
 
 .play basics/functions-continued.go
 
-* Multiple results
+* النتائج المتعددة
 
-A function can return any number of results.
+يمكن للدالة أن ترجع أي عدد من النتائج.
 
-The `swap` function returns two strings.
+دالة `swap` ترجع سلسلتين.
 
 .play basics/multiple-results.go
 
-* Named return values
+* القيم الراجعة المسماة
 
-Go's return values may be named. If so, they are treated as variables defined at the top of the function.
+القيم الراجعة في Go يمكن أن تسمى. وإذا سميت فهي تعامل كالمتغيرات المعرفة في بداية الدالة.
 
-These names should be used to document the meaning of the return values.
+ينبغي استخدام هذه الأسماء لتوثيق معنى القيم الراجعة.
 
-A `return` statement without arguments returns the named return values. This is known as a "naked" return.
+عبارة `return` بدون معطيات ترجع القيم الراجعة المسماة. هذا يسمى بالإرجاع العاري.
 
-Naked return statements should be used only in short functions, as with the example shown here. They can harm readability in longer functions.
+عبارات الإرجاع العاري ينبغي استخدامها في الدوال القصيرة فقط، كما في هذا المثال، لأنها يمكن أن تضر بقابلية القراءة في الدوال الطويلة.
 
 .play basics/named-results.go
 
-* Variables
+* المتغيرات
 
-The `var` statement declares a list of variables; as in function argument lists, the type is last.
+عبارة `var` تعلن قائمة من المتغيرات؛ وكما في معطيات الدوال، النوع يتبع الاسم.
 
-A `var` statement can be at package or function level. We see both in this example.
+عبارة `var` يمكن أن تكون على مستوى الحزمة أو الدالة. ونرى الحالين في هذا المثال.
 
 .play basics/variables.go
 
-* Variables with initializers
+* المتغيرات مع مؤسسات
 
-A var declaration can include initializers, one per variable.
+إعلان `var` يمكن أن يحتوى على مؤسسات لكل متغير.
 
-If an initializer is present, the type can be omitted; the variable will take the type of the initializer.
+إذا كان هناك مؤسس، يمكن طرح النوع وسيأخذ المتغير نوع المؤسس.
 
 .play basics/variables-with-initializers.go
 
-* Short variable declarations
+* إعلان المتغير القصير
 
-Inside a function, the `:=` short assignment statement can be used in place of a `var` declaration with implicit type.
+داخل الدوال، يمكن استخدام عبارة الإسناد القصير `:=` بدلًا من إعلان `var` بنوع مضمر.
 
-Outside a function, every statement begins with a keyword (`var`, `func`, and so on) and so the `:=` construct is not available.
+خارج الدوال، لابد أن تبدأ كل عبارة بكلمة مفتاحية (`var`، `func`، إلخ) ولذا لا يمكن استخدام `:=`.
 
 .play basics/short-variable-declarations.go
 
-* Basic types
+* الأنواع الأساسية
 
-Go's basic types are
+الأنواع الأساسية في Go
 
 	bool
 
@@ -143,93 +142,92 @@ Go's basic types are
 
 	complex64 complex128
 
-The example shows variables of several types,
-and also that variable declarations may be "factored" into blocks,
-as with import statements.
+هذا المثال يعرض متغيرات من أنواع متعددة،
+ويمكن جمع إعلانات المتغيرات في قطع كما في عبارات الاستيراد.
 
-The `int`, `uint`, and `uintptr` types are usually 32 bits wide on 32-bit systems and 64 bits wide on 64-bit systems.
-When you need an integer value you should use `int` unless you have a specific reason to use a sized or unsigned integer type.
+أنواع `int`، `uint`، و `uintptr` عادة تكون بعرض 32 بت على أنظمة 32-بت و 64 بت على أنظمة 64-بت.
+عندما تريد قيمة عدد ينبغي استخدام `int` إلا إذا كان لديك سبب محدد لاستخدام نوع بحجم محدد أو بدون إشارة.
 
 .play basics/basic-types.go
 
-* Zero values
+* القيمة الصفرية
 
-Variables declared without an explicit initial value are given their
-_zero_value_.
+المتغيرات المعلنة بدون قيمة أولية صريحة تعطى
+_القيمة_الصفرية_.
 
-The zero value is:
+القيمة الصفرية هي:
 
-- `0` for numeric types,
-- `false` for the boolean type, and
-- `""` (the empty string) for strings.
+- `0` لأنواع الأعداد
+- `false` للنوع البولي
+- `""` (السلسلة الفارغة) للسلاسل.
 
 .play basics/zero.go
 
-* Type conversions
+* تحويل الأنواع
 
-The expression `T(v)` converts the value `v` to the type `T`.
+التعبير `T(v)` يحول القيمة `v` إلى النوع `T`.
 
-Some numeric conversions:
+بعض تحويلات الأعداد:
 
 	var i int = 42
 	var f float64 = float64(i)
 	var u uint = uint(f)
 
-Or, put more simply:
+أو ببساطة:
 
 	i := 42
 	f := float64(i)
 	u := uint(f)
 
-Unlike in C, in Go assignment between items of different type requires an
-explicit conversion.
-Try removing the `float64` or `uint` conversions in the example and see what happens.
+على عكس C، الإسناد بين الأنواع المختلفة في Go يتطلب التحويل الصريح.
+جرب إزالة التحول إلى `float64` أو `uint` في المثال وشاهد ماذا سيحصل.
 
 .play basics/type-conversions.go
 
-* Type inference
+* استنباط الأنواع
 
-When declaring a variable without specifying an explicit type (either by using the `:=` syntax or `var`=` expression syntax), the variable's type is inferred from the value on the right hand side.
+عندنا تعلن متغير بدون تحديد نوع صريح (إما عن طريق صيغة `:=` أو تعبير `var`=`) سيتم استنباط نوع المتغير من القيمة في الجانب الأيمن.
 
-When the right hand side of the declaration is typed, the new variable is of that same type:
+عندما يكون للجانب الأيمن نوع، سيكون المتغير الجديد من نفس النوع:
 
 	var i int
 	j := i // j is an int
 
-But when the right hand side contains an untyped numeric constant, the new variable may be an `int`, `float64`, or `complex128` depending on the precision of the constant:
+ولكن عندما يحتوي الجانب الأيمن على ثابت عددي بدون نوع، سيكون نوع المتغير الجديد إما `int` أو `float64` أو `complex128` على حسب دقة الثابت على الجانب الأيمن:
 
 	i := 42           // int
 	f := 3.142        // float64
 	g := 0.867 + 0.5i // complex128
 
-Try changing the initial value of `v` in the example code and observe how its type is affected.
+جرب تغيير القيمة الأولية لـ `v` في كود المثال وراقب كيف يتغير النوع.
 
 .play basics/type-inference.go
 
-* Constants
+* الثوابت
 
-Constants are declared like variables, but with the `const` keyword.
+الثوابت تعرف كما المتغيرات، ولكن بالكلمة المفتاحية `const`.
 
-Constants can be character, string, boolean, or numeric values.
+الثوابت يمكن أن تكون قيم حرف أو سلسلة أو بوليان أو عدد.
 
-Constants cannot be declared using the `:=` syntax.
+الثوابت لا يمكن أن تعرف باستخدام صيغة `:=`.
+
 
 .play basics/constants.go
 
-* Numeric Constants
+* الثوابت الرقمية
 
-Numeric constants are high-precision _values_.
+الثوابت الرقمية هي _قيم_ عالية الدقة.
 
-An untyped constant takes the type needed by its context.
+الثابت غير محدد النوع سيأخذ النوع المناسب لسياقه.
 
-Try printing `needInt(Big)` too.
+جرب طباعة `needInt(Big)`.
 
-(An `int` can store at maximum a 64-bit integer, and sometimes less.)
+(القيم من نوع `int` يمكن أن يخزن بحد أقصى رقم صحيح من 64-بت, وأحيانًا أقل.)
 
 .play basics/numeric-constants.go
 
-* Congratulations!
+* مبروك!
 
-You finished this lesson!
+لقد انهيت هذا الدرس!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+بإمكانك العودة إلى  [[/list][القائمة]] لتختار ما تتعلمه، أو الاستمرار مع [[javascript:click('.next-page')][الدرس التالي]].

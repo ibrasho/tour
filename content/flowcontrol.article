@@ -1,156 +1,146 @@
-Flow control statements: for, if, else, switch and defer
-Learn how to control the flow of your code with conditionals, loops, switches and defers.
+تعليمات توجيه المسار: for و if و else و switch و defer
+تعلم كيف تتحكم في مسار كودك بالجمل الشرطية والتكرار والقواطع والمؤجلات.
 
-The Go Authors
+مؤلفو Go
 https://golang.org
 
 * For
 
-Go has only one looping construct, the `for` loop.
+في Go عبارة تكرار واحدة وهي تكرار `for`.
 
-The basic `for` loop has three components separated by semicolons:
+تكرار `for` الأساسي له ثلاثة مكونات مفصولة بفواصل منقوطة:
 
-- the init statement: executed before the first iteration
-- the condition expression: evaluated before every iteration
-- the post statement: executed at the end of every iteration
+- عبارة البدأ: تنفذ قبل الدورة الأولى
+- تعبير الشرط: تنفذ قبل كل دورة
+- العبارة البعدية: تنفذ بعد كل دورة
 
-The init statement will often be a short variable declaration, and the
-variables declared there are visible only in the scope of the `for`
-statement.
+عبارة البدأ ستكون في الغالب إعلان متغير قصير والمتغيرات المعلنة هناك مرئية فقط في نطاق عبارة الـ`for`.
 
-The loop will stop iterating once the boolean condition evaluates to `false`.
+التكرار سيتوقف متى ما تقدر الشرط البولي بـ `false`.
 
-_Note_: Unlike other languages like C, Java, or Javascript there are no parentheses
-surrounding the three components of the `for` statement and the braces `{`}` are
-always required.
+_ملاحظة_: على عكس اللغات الآخرى مثل C أو Java أو Javascript، ليس هناك أقواس تحيط بالمكونات الثلاثة لعبارة `for` والحواصر `{`}` مطلوبة دائمة.
 
 .play flowcontrol/for.go
 
-* For continued
+* تابع For
 
-The init and post statement are optional. 
+عبارة البدأ والعبارة البعدية اختيارية.
 
 .play flowcontrol/for-continued.go
 
-* For is Go's "while"
+* For هي "while" في Go
 
-At that point you can drop the semicolons: C's `while` is spelled `for` in Go.
+في هذه الحالة بإمكانك طرح الفواصل المنقوطة: `while` في C تكتب `for` في Go.
 
 .play flowcontrol/for-is-gos-while.go
 
-* Forever
+* للأبد
 
-If you omit the loop condition it loops forever, so an infinite loop is compactly expressed.
+إذا لم تكتب العبارة الشرطية سيستمر التكرار للأبد، وهذه طريقة مختصرة لتعريف تكرار أبدي.
 
 .play flowcontrol/forever.go
 
-* If
+* إذا
 
-Go's `if` statements are like its `for` loops; the expression need not be
-surrounded by parentheses `(`)` but the braces `{`}` are required.
+عبارات `if` في Go مثل تكرار `for`"؛ لا يلزم أن تحوط العبارة بأقواس `(`)` ولكن الحواصر `{`}` مطلوبة.
 
 .play flowcontrol/if.go
 
-* If with a short statement
+* If مع عبارة قصيرة
 
-Like `for`, the `if` statement can start with a short statement to execute before the condition.
+مثل `for`، عبارة `if` يمكن أن تبدأ بعبارة قصيرة لتنفذ قبل الشرط.
 
-Variables declared by the statement are only in scope until the end of the `if`.
+المتغيرات المعلنة في العبارة متاحة في النطاق حتى نهاية عبارة `if`.
 
-(Try using `v` in the last `return` statement.)
+(جرب استخدام `v` في آخر عبارة `return`.)
 
 .play flowcontrol/if-with-a-short-statement.go
 
-* If and else
+* إذا وما عدا "If and else"
 
-Variables declared inside an `if` short statement are also available inside any
-of the `else` blocks.
+المتغيرات المعلنة داخل عبارة `if` قصيرة متاحة داخل أي كتلة `else`.
 
-(Both calls to `pow` are executed and return before the call to `fmt.Println`
-in `main` begins.)
+(كلا استدعائي `pow` تنفذ وترجع قبل أن يبدأ استدعاء `fmt.Println` في `main`.)
 
 .play flowcontrol/if-and-else.go
 
-* Exercise: Loops and Functions
+* تمرين: التكرار والدوال
 
-As a way to play with functions and loops, implement the square root function using Newton's method.
+كطريقة للعب مع الدوال والتكرار، طبق دالة الجذر المربع باستخدام طريقة نيوتن.
 
-Newton's method is to approximate `Sqrt(x)` by picking a starting point _z_ first, and repeating:
+طريقة نيوتن هي تقريب `Sqrt(x)` باختيار نقطة بداية _z_ وتكرار:
 
 .image /content/img/newton.png
 
-Hint: Iterate and return the final value of _z_ as the answer:
+مساعدة: كرر ورجع القيمة النهائية لـ _z_ كإجابة:
 
 	z -= (z*z - x) / (2*z)
 
-To begin with, repeat the calculation 10 times and see how close you get to the answer for various values (1, 2, 3, ...).
+لتبدأ، كرر الحساب 10 مرات وشاهد كيف تقترب من النتيجة في كل تكرار.
 
-Next, change the loop condition to stop once the value has stopped changing (or only changes by a very small amount). See if that's more or fewer than 10 iterations. How close are you to the [[https://golang.org/pkg/math/#Sqrt][math.Sqrt]]?
+بعد ذلك، غير شرط التكرار ليتوقف متى ما توقفت القيمة عن التغير (أو تغيرت بشكل طفيف جدًا). راقب هل سيكون هذا خلال أقل من 10 دورات. ما مقدار الشبه بين حلك ودالة [[https://golang.org/pkg/math/#Sqrt][math.Sqrt]]?
 
-Hint: To declare and initialize a floating point value, give it floating point syntax or use a conversion:
+مساعدة: لتعلن قيمة فاصلة عائمة استخدم صيغة الفاصلة العائمة أو استخدم التحويل:
 
 	z := float64(1)
 	z := 1.0
 
 .play flowcontrol/exercise-loops-and-functions.go
 
-* Switch
+* القاطع
 
-You probably knew what `switch` was going to look like.
+في الغالب، أنت تعرف كيف سيبدو شكل عبارة `switch`.
 
-A case body breaks automatically, unless it ends with a `fallthrough` statement.
+محتوى الحالة ينتهي مباشرة، إلا إذا كانت تنتهي بعبارة `fallthrough`.
 
 .play flowcontrol/switch.go
 
-* Switch evaluation order
+* ترتيب تقييم القاطع
 
-Switch cases evaluate cases from top to bottom, stopping when a case succeeds.
+حالات القاطع تقيم من الأعلى للأسفل، وتتوقف حالما تنطبق إحدى الحالات.
 
-(For example,
+(كمثال،
 
 	switch i {
 	case 0:
 	case f():
 	}
 
-does not call `f` if `i==0`.)
+لا تستدعي `f` إذا كانت `i==0`.)
 
-#appengine: *Note:* Time in the Go playground always appears to start at
-#appengine: 2009-11-10 23:00:00 UTC, a value whose significance is left as an
-#appengine: exercise for the reader.
+#appengine: *ملاحظة:* الوقت في ساحة لعب Go دائما يبدأ في
+#appengine: 2009-11-10 23:00:00 UTC، وهذه قيمة نترك تحديد أهميتها
+#appengine: للقارئ كتمرين.
 
 .play flowcontrol/switch-evaluation-order.go
 
-* Switch with no condition
+* القطاع بدون شرط
 
-Switch without a condition is the same as `switch`true`.
+القاطع بدون شرط مثل `switch`true`.
 
-This construct can be a clean way to write long if-then-else chains.
+هذا التركيب يمكن استخدامه كطريقة نظيفة لكتابة سلاسل إذا-ثم-ماعدا الطويلة.
 
 .play flowcontrol/switch-with-no-condition.go
 
-* Defer
+* التأجيل
 
-A defer statement defers the execution of a function until the surrounding
-function returns.
+عبارة التأجيل `defer` تؤجل تنفيذ الدالة حتى ترجع الدالة المحيطة الحالية.
 
-The deferred call's arguments are evaluated immediately, but the function call
-is not executed until the surrounding function returns.
+معطيات الاستدعاء المؤجل تقيم بشكل فوري، ولكن استدعاء الدالة لا ينفذ حتى ترجع الدالة المحيطة.
 
 .play flowcontrol/defer.go
 
-* Stacking defers
+* تكديس التأجيل
 
-Deferred function calls are pushed onto a stack. When a function returns, its
-deferred calls are executed in last-in-first-out order.
+استدعاءات الدوال المؤجلة ترص على كومة. عندما ترجع الدالة، الاستدعاءات المؤجلة تنفذ بطريقة خروج-بترتيب-الورود.
 
-To learn more about defer statements read this
-[[https://blog.golang.org/defer-panic-and-recover][blog post]].
+لتتعلم المزيد عن عبارات التأجيل إقرأ
+[[https://blog.golang.org/defer-panic-and-recover][نشرة المدونة]].
 
 .play flowcontrol/defer-multi.go
 
-* Congratulations!
+* مبروك!
 
-You finished this lesson!
+لقد انهيت هذا الدرس!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+بإمكانك العودة إلى  [[/list][القائمة]] لتختار ما تتعلمه، أو الاستمرار مع [[javascript:click('.next-page')][الدرس التالي]].
