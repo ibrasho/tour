@@ -1,87 +1,93 @@
-Concurrency
-Go provides concurrency constructions as part of the core language. This lesson presents them and gives some examples on how they can be used.
+التزامن
+Go توفر تراكيب التزامن كجزء من صلب اللغة. هذا الدرس يعرض هذه التراكيب ويعطي أمثلة على كيفية استخدامها.
 
-The Go Authors
+مؤلفو Go
 https://golang.org
 
-* Goroutines
+* الݠوروتينات
 
-A _goroutine_ is a lightweight thread managed by the Go runtime.
+_الݠوروتين_ هو خيط خفيف مدار من مشغل Go.
 
 	go f(x, y, z)
 
-starts a new goroutine running
+تبدأ ݠوروتين ينفذ
 
 	f(x, y, z)
 
-The evaluation of `f`, `x`, `y`, and `z` happens in the current goroutine and the execution of `f` happens in the new goroutine.
+تقييم `f` و `x` و `y` و `z` يحصل في الݠوروتين الحالية وتنفيذ `f` يحصل في الݠوروتين الجديدة.
 
-Goroutines run in the same address space, so access to shared memory must be synchronized. The [[https://golang.org/pkg/sync/][`sync`]] package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
+الݠوروتينات تشتغل في نفس مساحة العناوين، ولذا الوصول للذاكرة المشتركة يجب أن يكون مزامنًا. حزمة [[https://golang.org/pkg/sync/][`sync`]] تقدم أوليات مفيدة، على الرغم من كونك لن تحتاجها بشكل كبير في  Go لتوفر أوليات آخرى. (انظر شريحة العرض القادمة.)
 
 .play concurrency/goroutines.go
 
-* Channels
+* القنوات
 
-Channels are a typed conduit through which you can send and receive values with the channel operator, `<-`.
+القنوات هي مسالك محددة النوع بإمكانك إرسال واستقبال القيم من خلالها بمعامل القناة، `<-`.
 
 	ch <- v    // Send v to channel ch.
 	v := <-ch  // Receive from ch, and
 	           // assign value to v.
 
-(The data flows in the direction of the arrow.)
+(البيانات تنساب باتجاه السهم.)
 
-Like maps and slices, channels must be created before use:
+مثل الخرائط والشرائح، لابد من إنشاء القنوات قبل استخدامها:
+
 
 	ch := make(chan int)
 
-By default, sends and receives block until the other side is ready. This allows goroutines to synchronize without explicit locks or condition variables.
+افتراضيًا، الإرسال والاستقبال خلال القناة حابس حتى يكون الطرف الآخر جاهزًا.
+هذا يسمح للݠوروتينات بالمزامنة بدون الأقفال الصريحة والمتغيرات الشرطية.
 
-The example code sums the numbers in a slice, distributing the work between two goroutines.
-Once both goroutines have completed their computation, it calculates the final result.
+كود المثال يجمع الأعداد في شريحة، موزعًا العمل بين ݠوروتينتين.
+متى ما اكملت الݠوروتينات عملها، سيحسب الناتج النهائي.
 
 .play concurrency/channels.go
 
-* Buffered Channels
+* القنوات المصونة
 
-Channels can be _buffered_.  Provide the buffer length as the second argument to `make` to initialize a buffered channel:
+القنوات من الممكن جعلها _مصونة_. قدم حجم الصُّوان كمعطى ثاني لدالة `make` لتنشأ قناة مصونة:
 
 	ch := make(chan int, 100)
 
-Sends to a buffered channel block only when the buffer is full. Receives block when the buffer is empty.
+الإرسال لقناة مصونة يحبس فقط إذا كان الصُّوان مليئًا. الاستقبال يحبس عندما يكون الصُّوان فارغًا.
 
-Modify the example to overfill the buffer and see what happens.
+عدل المثال ليفيض الصُّوان وشاهد ماذا يحدث.
 
 .play concurrency/buffered-channels.go
 
-* Range and Close
+* الدوران والإغلاق
 
-A sender can `close` a channel to indicate that no more values will be sent. Receivers can test whether a channel has been closed by assigning a second parameter to the receive expression: after
+بإمكان المرسل إغلاق (`close`) القناة للإشعار بعدم وجدد قيمة إضافية سيتم إرسالها. المستقبون بإمكانهم التحقق من كون القناة أغلقت بإسناد متغير ثاني لتعبير الاستقال: بعد تنفيض
 
 	v, ok := <-ch
 
-`ok` is `false` if there are no more values to receive and the channel is closed.
+`ok` سيكون `false` إذا لم يكن هنا المزيد من القيم والقناة مغلقة.
 
-The loop `for`i`:=`range`c` receives values from the channel repeatedly until it is closed.
+التكرار `for`i`:=`range`c` يستقبل القيم من القناة باستمرار حتى تغلق.
 
-*Note:* Only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
+*ملاحظة:* القناة يفترض أن يغلقها المرسل فقط، وليس المستقبل. محاولة الإرسال على قناة مغلقة سيسبب هلعًا (panic).
 
+<<<<<<< HEAD
 *Another*note:* Channels aren't like files; you don't usually need to close them. Closing is only necessary when the receiver must be told there are no more values coming, such as to terminate a `range` loop.
+=======
+*ملاحظة*أخرى*: القنوات ليست مثل الملفات؛ لا تحتاج في العادة إلى إغلاقها. تحتاج للإغلاق فقط إذا كان يلزم إبلاغ من المستقبل بأنه لا مزيد من القيم سترسل، مثلا إذا احتجت لإنها تكرار `range`.
+>>>>>>> Arabic translation
 
 .play concurrency/range-and-close.go
 
-* Select
+* الاختيار
 
-The `select` statement lets a goroutine wait on multiple communication operations.
+عبارة `select` تجعل الݠوروتين ينتظر بين عدة عمليات تواصل.
 
-A `select` blocks until one of its cases can run, then it executes that case.  It chooses one at random if multiple are ready.
+عبارة `select` تحبس حتى يمكن تنفيض إحدى حالتها، ومن ثم تنفذ تلك الحالة. يتم الاختيار بشكل عشوائي إذا كانت عدة حالات جاهزة.
 
 .play concurrency/select.go
 
-* Default Selection
+* الاختيار الافتراضي
 
-The `default` case in a `select` is run if no other case is ready.
+حالة `default` في `select` تنفذ إذا لم تكن أي حالة آخرى جاهزة.
 
-Use a `default` case to try a send or receive without blocking:
+استخدم حالة `default` لتجرب الإرسال أو الاستقبال بدون حبس:
 
 	select {
 	case i := <-c:
@@ -92,15 +98,20 @@ Use a `default` case to try a send or receive without blocking:
 
 .play concurrency/default-selection.go
 
-* Exercise: Equivalent Binary Trees
+* تمرين: الأشجار الثنائية المتكافئة
 
+<<<<<<< HEAD
 There can be many different binary trees with the same sequence of values stored in it. For example, here are two binary trees storing the sequence 1, 1, 2, 3, 5, 8, 13.
+=======
+هناك العديد من الأشجار الثنائية بنفس تسلسل القيم المخزنة في الأطراف.
+مثلًا، هناك شجرتين ثنائية تخزن التسلسل 1, 1, 2, 3, 5, 8, 13.
+>>>>>>> Arabic translation
 
 .image /content/img/tree.png
 
-A function to check whether two binary trees store the same sequence is quite complex in most languages. We'll use Go's concurrency and channels to write a simple solution.
+كتابة دالة للتحقق من كون شجرتين ثنائية تخزن نفس التسلسل عملية معقدة في أغلب لغات البرمجة. سنستخدم التزامن والقنوات في Go لنكتب حلًا بسيطًا.
 
-This example uses the `tree` package, which defines the type:
+هذا المثال يستخدم حزمة `tree`، وهي تعرف النوع:
 
 	type Tree struct {
 		Left  *Tree
@@ -108,101 +119,101 @@ This example uses the `tree` package, which defines the type:
 		Right *Tree
 	}
 
+أكمل الشرح في [[javascript:click('.next-page')][الصفحة التالية]].
 
-Continue description on [[javascript:click('.next-page')][next page]].
+* تمرين: الأشجار الثنائية المتكافئة
 
-* Exercise: Equivalent Binary Trees
+*1.* طبّق دالة `Walk`.
 
-*1.* Implement the `Walk` function.
+*2.* اختبر دالة `Walk`.
 
-*2.* Test the `Walk` function.
-
+<<<<<<< HEAD
 The function `tree.New(k)` constructs a randomly-structured (but always sorted) binary tree holding the values `k`, `2k`, `3k`, ..., `10k`.
+=======
+الدالة `tree.New(k)` تكون شجرة ثنائية مبنية عشوائيًا تحمل القيم `k`، `2k`، `3k`، ...، `10k`.
+>>>>>>> Arabic translation
 
-Create a new channel `ch` and kick off the walker:
+أنشئ قناة جديدة `ch` وشغل:
 
 	go Walk(tree.New(1), ch)
 
-Then read and print 10 values from the channel. It should be the numbers 1, 2, 3, ..., 10.
+ومن ثم إقرأ وأطبع 10 قيم من القناة. ينبغي أن تكون الأرقام 1، 2، 3، ...، 10.
 
-*3.* Implement the `Same` function using `Walk` to determine whether `t1` and `t2` store the same values.
+*3.* طبّق دالة `Same` باستخدام `Walk` لتحديد ما إذا كان `t1` و `t2` يخزنان نفس القيم.
 
-*4.* Test the `Same` function.
+*4.* اختبر دالة `Same`.
 
-`Same(tree.New(1),`tree.New(1))` should return true, and `Same(tree.New(1),`tree.New(2))` should return false.
+`Same(tree.New(1),`tree.New(1))` ينبغي أن ترجع `true` و `Same(tree.New(1),`tree.New(2))` ينبغي أن ترجع `false`.
 
-The documentation for `Tree` can be found [[https://godoc.org/golang.org/x/tour/tree#Tree][here]].
+توثيق `Tree` موجود [[https://godoc.org/golang.org/x/tour/tree#Tree][هنا]].
 
 .play concurrency/exercise-equivalent-binary-trees.go
 
 * sync.Mutex
 
-We've seen how channels are great for communication among goroutines.
+لقد استعرضنا روعة القنوات في التواصل بين الݠوروتينات.
 
-But what if we don't need communication? What if we just want to make sure only
-one goroutine can access a variable at a time to avoid conflicts?
+لكن ماذا إذا كنا لا نحتاج للتواصل؟ ماذا إذا احتجنا للتأكد من أن ݠوروتين واحدة فقط تستطيع الوصول لمتغير لتلافي الصدام؟
 
-This concept is called _mutual_exclusion_, and the conventional name for the data structure that provides it is _mutex_.
 
-Go's standard library provides mutual exclusion with
-[[https://golang.org/pkg/sync/#Mutex][`sync.Mutex`]] and its two methods:
+هذا المفهوم يسمى _استبعاد_التشارك_، والاسم المتعارف عليه لتركيب البيانات الذي يقدمه هو _mutex_.
+
+المكتبة المعيارية في Go تقدم استبعاد التشارك بتركيب
+[[https://golang.org/pkg/sync/#Mutex][`sync.Mutex`]] (المستخلص) ذو الدالتين:
 
 - `Lock`
 - `Unlock`
 
-We can define a block of code to be executed in mutual exclusion by surrounding it
-with a call to `Lock` and `Unlock` as shown on the `Inc` method.
+نستطيع تعريف جزء من الكود يتم تفيذها باستثناء متبادل عبر تحويطها
+باستدعاء `Lock` و `Unlock` كما هو معرض في دالة `Inc`.
 
-We can also use `defer` to ensure the mutex will be unlocked as in the `Value` method.
+نستطيع أيضًا استخدام `defer` للتأكد من كون المستخلص `Mutex` سيفتح كما في دالة `Value`.
 
 .play concurrency/mutex-counter.go
 
-* Exercise: Web Crawler
+* تمرين: دابّ الشكبة
 
-In this exercise you'll use Go's concurrency features to parallelize a web crawler.
+في هذا التمرين ستستخدم خواص التزامن في Go لتنفيذ عمل دابّ شبكة بالتوازي.
 
-Modify the `Crawl` function to fetch URLs in parallel without fetching the same URL twice.
+عدل دالة `Crawl` لتجلب الروابط بالتوازي بدون جلب نفس الرابط مرتين.
 
-_Hint_: you can keep a cache of the URLs that have been fetched on a map, but maps alone are not
-safe for concurrent use!
+_مساعدة_: بإمكانك تخزين نسخة من الروابط التي تم جلبها في خريطة،
+ولكن الخريطة لوحدها لا يمكن استخدامها بالتزامن بشكل آمن!
 
 .play concurrency/exercise-web-crawler.go
 
-* Where to Go from here...
+* أين نذهب من هنا...
 
-#appengine: You can get started by
-#appengine: [[https://golang.org/dl/][installing Go]].
+#appengine: بإمكانك البدأ
+#appengine: [[https://golang.org/dl/][بتنصيب Go]].
 
-#appengine: Once you have Go installed, the
-The
-[[https://golang.org/doc/][Go Documentation]] is a great place to
-#appengine: continue.
-start.
-It contains references, tutorials, videos, and more.
+#appengine: متى ما نصبت Go،
+[[https://golang.org/doc/][توثيق Go]] مكان رائع
+#appengine: للاستمرار.
+للبدء.
+التوثيق يحتوي على مراجع ودروس ومقاطع والمزيد.
 
-To learn how to organize and work with Go code, watch [[https://www.youtube.com/watch?v=XCsL89YtqCs][this screencast]] or read [[https://golang.org/doc/code.html][How to Write Go Code]].
+لتتعلم كيف ترتب وتعمل مع أكواد Go، شاهد [[https://www.youtube.com/watch?v=XCsL89YtqCs][هذه التسجيل المرئي]] أو إقرأ [[https://golang.org/doc/code.html][كيف تكتب كود Go]].
 
-If you need help with the standard library, see the [[https://golang.org/pkg/][package reference]]. For help with the language itself, you might be surprised to find the [[https://golang.org/ref/spec][Language Spec]] is quite readable.
+إذا كنت تحتاج للمساعدة مع المكتبة المعيارية، اطلع على [[https://golang.org/pkg/][مرجع الحزمة]]. للمساعدة مع اللغة نفسها ستتفاجئ بكون  [[https://golang.org/ref/spec][توصيف الغة]] سهل القراءة.
 
-To further explore Go's concurrency model, watch
-[[https://www.youtube.com/watch?v=f6kdp27TYZs][Go Concurrency Patterns]]
-([[https://talks.golang.org/2012/concurrency.slide][slides]])
-and
-[[https://www.youtube.com/watch?v=QDDwwePbDtw][Advanced Go Concurrency Patterns]]
-([[https://talks.golang.org/2013/advconc.slide][slides]])
-and read the
-[[https://golang.org/doc/codewalk/sharemem/][Share Memory by Communicating]]
-codewalk.
+لتستكشف نموذج التزامن في Go، شاهد
+[[https://www.youtube.com/watch?v=f6kdp27TYZs][أنماط التزامن في Go]]
+([[https://talks.golang.org/2012/concurrency.slide][شرائح العرض]])
+و
+[[https://www.youtube.com/watch?v=QDDwwePbDtw][أنماط التزامن المتقدمة في Go]]
+([[https://talks.golang.org/2013/advconc.slide][شرائح العرض]])
+وأقرأ جولة
+[[https://golang.org/doc/codewalk/sharemem/][شارك الذاكرة بالتواصل]].
 
-To get started writing web applications, watch
-[[https://vimeo.com/53221558][A simple programming environment]]
-([[https://talks.golang.org/2012/simple.slide][slides]])
-and read the
-[[https://golang.org/doc/articles/wiki/][Writing Web Applications]] tutorial.
+لتبدأ كتابة تطبيقات الشبكة شاهد
+[[https://vimeo.com/53221558][بيئة برمجة بسيطة]]
+([[https://talks.golang.org/2012/simple.slide][شرائح العرض]])
+وأقرأ درس
+[[https://golang.org/doc/articles/wiki/][كتابة تطبيقات الشبكة]].
 
-The [[https://golang.org/doc/codewalk/functions/][First Class Functions in Go]] codewalk gives an interesting perspective on Go's function types.
+جولة [[https://golang.org/doc/codewalk/functions/][دوال الدرجة الأولى في Go]] تعطي منظور مثير للاهتمام على أنواع الدوال في Go.
 
-The [[https://blog.golang.org/][Go Blog]] has a large archive of informative Go articles.
+[[https://blog.golang.org/][مدونة Go]] فيها أرشيف كبير من المقالات المثرية حول Go.
 
-Visit [[https://golang.org][golang.org]] for more.
-
+زر [[https://golang.org][golang.org]] للاطلاع على المزيد.
