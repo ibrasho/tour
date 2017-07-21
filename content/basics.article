@@ -4,7 +4,7 @@
 مؤلفو Go
 https://golang.org
 
-* الحزم
+* الحزم (Packages)
 
 كل برنامج Go مكون من عدة حزم.
 
@@ -21,7 +21,7 @@ https://golang.org
 
 .play basics/packages.go
 
-* الاستيراد
+* الاستيراد (Imports)
 
 تستخدم العبارة `import` لاستيراد الحزم. ويمكن استخدامها لاستيراد عدة حزم مرة واحدة أو استيراد كل حزمة على حدة.
 
@@ -36,7 +36,7 @@ https://golang.org
 
 .play basics/imports.go
 
-* المعرّفات المصدّرة
+* المعرّفات المصدّرة (Exported names)
 
 في Go, المعرّف يصدّر إذا كان يبدأ بحرف كبير.
 مثلًا، `Pizza` معرّف مصدّر، وكذلك `Pi` المصدر من حزمة `math`.
@@ -52,7 +52,7 @@ https://golang.org
 
 .play basics/exported-names.go
 
-* الدوال
+* الدوال (Functions)
 
 الدالة من الممكن أن تكون بدون معطيات، أو أن تأخذ معطى أو أكثر.
 
@@ -78,7 +78,7 @@ https://golang.org
 
 .play basics/functions-continued.go
 
-* النتائج المتعددة
+* النتائج المتعددة (Multiple returns)
 
 يمكن للدالة أن ترجع أي عدد من النتائج.
 
@@ -86,7 +86,7 @@ https://golang.org
 
 .play basics/multiple-results.go
 
-* القيم الراجعة المسماة
+* القيم الراجعة المسماة (Named return values)
 
 القيم الراجعة في Go يمكن أن تسمى. وإذا سميت فهي تعامل كالمتغيرات المعرفة في بداية الدالة.
 
@@ -98,7 +98,7 @@ https://golang.org
 
 .play basics/named-results.go
 
-* المتغيرات
+* المتغيرات (Variables)
 
 عبارة `var` تعلن قائمة من المتغيرات؛ وكما في معطيات الدوال، النوع يتبع الاسم.
 
@@ -106,7 +106,7 @@ https://golang.org
 
 .play basics/variables.go
 
-* المتغيرات مع مؤسسات
+* المتغيرات مع مؤسسات (Variables with initializers)
 
 إعلان `var` يمكن أن يحتوى على مؤسسات لكل متغير.
 
@@ -114,7 +114,7 @@ https://golang.org
 
 .play basics/variables-with-initializers.go
 
-* إعلان المتغير القصير
+* إعلان المتغير القصير (Short varibale declaration)
 
 داخل الدوال، يمكن استخدام عبارة الإسناد القصير `:=` بدلًا من إعلان `var` بنوع مضمر.
 
@@ -122,7 +122,7 @@ https://golang.org
 
 .play basics/short-variable-declarations.go
 
-* الأنواع الأساسية
+* الأنواع الأساسية (Basic types)
 
 الأنواع الأساسية في Go
 
@@ -150,7 +150,7 @@ https://golang.org
 
 .play basics/basic-types.go
 
-* القيمة الصفرية
+* القيمة الصفرية (Zero value)
 
 المتغيرات المعلنة بدون قيمة أولية صريحة تعطى
 _القيمة_الصفرية_.
@@ -163,7 +163,7 @@ _القيمة_الصفرية_.
 
 .play basics/zero.go
 
-* تحويل الأنواع
+* تحويل الأنواع (Type conversions)
 
 التعبير `T(v)` يحول القيمة `v` إلى النوع `T`.
 
@@ -184,7 +184,7 @@ _القيمة_الصفرية_.
 
 .play basics/type-conversions.go
 
-* استنباط الأنواع
+* استنباط الأنواع (Type inference)
 
 عندنا تعلن متغير بدون تحديد نوع صريح (إما عن طريق صيغة `:=` أو تعبير `var`=`) سيتم استنباط نوع المتغير من القيمة في الجانب الأيمن.
 
@@ -203,7 +203,7 @@ _القيمة_الصفرية_.
 
 .play basics/type-inference.go
 
-* الثوابت
+* الثوابت (Constants)
 
 الثوابت تعرف كما المتغيرات، ولكن بالكلمة المفتاحية `const`.
 
@@ -214,7 +214,7 @@ _القيمة_الصفرية_.
 
 .play basics/constants.go
 
-* الثوابت الرقمية
+* الثوابت الرقمية (Numeric constants)
 
 الثوابت الرقمية هي _قيم_ عالية الدقة.
 
