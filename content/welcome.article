@@ -8,14 +8,14 @@ https://golang.org
 
 أهلًا بك إلى جولة في [[https://golang.org/][لغة البرمجة Go]].
 
-هذه الجولة مقسمة إلى سلسلة من الأجزاء يمكنك الوصول لها عبر الضغط على
-[[javascript:highlight(".logo")][جولة في Go]] في أعلى يمين الصفحة.
+هذه الجولة مقسمة إلى سلسلة من الأجزاء يمكنك الإطلاع عليها بالنقر على
+[[javascript:highlight(".logo")][جولة في Go]]  أعلى يمين الصفحة.
 
-بإمكانك الاطلاع على جدول المحتويات في أي وقت بالضغط على [[javascript:highlightAndClick(".nav")][القائمة]] في أعلى يسار الصفحة.
+يمكنك أيضًا الاطلاع على جدول المحتويات في أي وقت بالنقر على [[javascript:highlightAndClick(".nav")][القائمة]] أعلى يسار الصفحة.
 
-هذه الجولة تتضمن سلسلة من الشرائح والتمارين لتكملها.
+هذه الجولة تتضمن سلسلة من الشرائح والتمارين المعدة لإكملها.
 
-بإمكانك تصفحها من خلال:
+بإمكانك التصفح من خلال:
 
 - [[javascript:highlight(".prev-page")]["السابق"]] أو `PageUp` للذهاب للصفحة السابقة،
 
@@ -29,19 +29,19 @@ https://golang.org
 
 هذه الأمثلة تستعرض جوانب مختلفة من Go. البرامج في الجولة يراد منها أن تكون نقاط بداية لتجاربك الشخصية.
 
-عدل على البرنامج وشغله مجددًا للتجريب.
+عدل على البرنامج وشغله مجددًا للتجربة.
 
-عندما تضغط على [[javascript:highlightAndClick("#format")][تنسيق]] أو `ctrl-enter` سيتم تنسيق النص في المحرر باستخدام أداة [[https://golang.org/cmd/gofmt/][gofmt]].
+الضغط على [[javascript:highlightAndClick("#format")][تنسيق]] أو `ctrl-enter` ينسق النص في المحرر باستخدام أداة [[https://golang.org/cmd/gofmt/][gofmt]].
 
 بإمكانك تفعيل أو تعطيل تبيين الصيغة (syntax highlighting) بالضغط على زر [[javascript:highlightAndClick(".syntax-checkbox")][الصيغة]].
 
-عندما تكون مستعدًا للاستمرار، اضغط على [[javascript:highlightAndClick(".next-page")][التالي]] في الأسفل أو اضغط زر `PageDown`.
+ للاستمرار اضغط [[javascript:highlightAndClick(".next-page")][التالي]] في الأسفل أو اضغط زر `PageDown`.
 
 .play welcome/hello.go
 
 * ترجمات جولة في Go
 
-الجولة موجودة بلغات آخرى:
+الجولة موجودة بلغات أخرى:
 
 - [[https://go-tour-br.appspot.com/][البرتغالية البرازيلية — Português do Brasil]]
 - [[https://go-tour-ca.appspot.com/][الكاتلونية — Català]]
@@ -65,7 +65,7 @@ https://golang.org
 
 #appengine: * Go دون اتصال بالإنترنت
 #appengine:
-#appengine: هذه الجولة موجودة كبرنامج مستقل بإمكانك استخدام بدون الوصول للإنترنت.
+#appengine: هذه الجولة متوفرة كبرنامج مستقل بإمكانك استخدامه بدون الوصول للإنترنت.
 #appengine:
 #appengine: الجولة المستقلة أسرع لأنها تبني وتشغل الكود على جهازك الشخصي.
 #appengine:
@@ -74,19 +74,20 @@ https://golang.org
 #appengine:
 #appengine: 	go tool tour
 #appengine:
-#appengine: برنامج الجولة سيفتح متصفح الشبكة عارضًا النسخة المحلية من الجولة.
+#appengine: برنامج الجولة سيفتح متصفح الشبكة عارضًا النسخة المحلية منها.
 #appengine:
 #appengine: أو بإمكانك الاستمرار في الجولة من خلال هذا الموقع.
 
-#appengine: * ساحة لعب Go
+#appengine: * ساحة لعب Go (Go playground)
 #appengine:
-#appengine: هذه الجولة مبنية على [[https://play.golang.org/][ساحة لعب Go]], وهي خدمة شبكية
+#appengine: هذه الجولة مبنية على [[https://play.golang.org/][ساحة لعب Go]]، وهي خدمة شبكية
 #appengine: تعمل على خوادم [[https://golang.org/][golang.org]].
 #appengine:
 #appengine: هذه الخدمة تستقبل برنامج Go وتقوم بترجمة وربط وتشغيل البرنامج في
 #appengine: بيئة مغلقة ومن ثم تعيد المخرجات.
 #appengine:
 #appengine: هناك قيود على البرامج التي يمكن تشغيلها في ساحة اللعب:
+#appengine:
 #appengine:
 #appengine: - في ساحة اللعب الوقت يبدأ في 2009-11-10 23:00:00 UTC (تحديد أهمية هذا التاريخ متروكة كتمرين للقارئ). هذا يجعل تخزين البرامج أسهل عبر توفير مخرجات حتمية.
 #appengine:
@@ -103,4 +104,4 @@ https://golang.org
 لقد أكملت الجزء الأول من هذه الجولة!
 
 الآن، اضغط على [[javascript:highlightAndClick(".logo")][جولة في Go]] لتتعرف على المزيد مما
-يمكنك تعلمه حول Go, أو توجه مباشرة إلى [[javascript:click('.next-page')][الدرس التالي]].
+يمكنك تعلمه حول Go، أو توجه مباشرة إلى [[javascript:click('.next-page')][الدرس التالي]].
