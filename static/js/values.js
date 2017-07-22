@@ -5,9 +5,9 @@
 "use strict";
 
 angular
-  .module("tour.values", [])
+  .module('tour.values', [])
   // List of modules with description and lessons in it.
-  .value("tableOfContents", [
+  .value('tableOfContents', [
     {
       id: "mechanics",
       title: "استخدام الجولة",
@@ -36,32 +36,59 @@ angular
         "<p>Go تقدم مميزات التزامن كجزء من صميم اللغة.</p><p>هذا الجزء يغطي الݠوروتينات والقنوات وكيف تستخدم لتطبيق أنماط تزامن مختلفة.</p>",
       lessons: ["concurrency"]
     }
-  ])
+    {
+        id: "mechanics",
+        title: "استخدام الجولة",
+        description:
+          '<p>أهلًا بك في جولة في <a href="http://golang.org">لغة البرمجة Go</a>. الجولة تغطي أهم المميزات للغة، وبشكل رئيسي:</p>',
+        lessons: ["welcome"]
+      },
+      {
+        id: "basics",
+        title: "الأساسيات",
+        description:
+          "<p>نقطة البداية لتعلم أساسيات اللغة.</p><p>إعلان المتغيرات واستدعاء الدوال وكل الأساسيات التي تحتاجها قبل الانتقال للدروس القادمة.</p>",
+        lessons: ["basics", "flowcontrol", "moretypes"]
+      },
+      {
+        id: "methods",
+        title: "الوظائف والواجهات",
+        description:
+          "<p>تعلم كيف تعرف الوظائف على الأنواع، كيف تعلن الواجهات، وكيف تستفيد من جميع هذه الميزات.</p>",
+        lessons: ["methods"]
+      },
+      {
+        id: "concurrency",
+        title: "التزامن",
+        description:
+          "<p>Go تقدم مميزات التزامن كجزء من صميم اللغة.</p><p>هذا الجزء يغطي الݠوروتينات والقنوات وكيف تستخدم لتطبيق أنماط تزامن مختلفة.</p>",
+        lessons: ["concurrency"]
+      }
+    ])
   // translation
-  .value("translation", {
-    off: "معطل",
-    on: "مفعل",
-    syntax: "تبيين-الصيغة",
-    lineno: "أرقام-الأسطر",
-    reset: "Reset Slide",
-    format: "تنسيق الكود",
-    kill: "اقتل البرنامج",
-    run: "تشغيل",
-    compile: "ترجم وشغل",
-    more: "الخيارات",
-    toc: "جدول المحتويات",
-    prev: "السابق",
-    next: "التالي",
-    waiting: "بانتظار الخادم البعيد...",
-    errcomm: "خطأ في التواصل مع الخادم البعيد.",
-    "submit-feedback": "أرسل تعليق حول هذه الصفحة",
+  .value('translation', {
+    'off': 'معطل',
+    'on': 'مفعل',
+    'syntax': 'تبيين-الصيغة',
+    'lineno': 'أرقام-الأسطر',
+    'reset': 'Reset Slide',
+    'format': 'تنسيق الكود',
+    'kill': 'اقتل البرنامج',
+    'run': 'تشغيل',
+    'compile': 'ترجم وشغل',
+    'more': 'الخيارات',
+    'toc': 'جدول المحتويات',
+    'prev': 'السابق',
+    'next': 'التالي',
+    'waiting': 'بانتظار الخادم البعيد...',
+    'errcomm': 'خطأ في التواصل مع الخادم البعيد.',
+    'submit-feedback': 'أرسل تعليق حول هذه الصفحة',
 
     // GitHub issue template: update repo and messaging when translating.
-    "github-repo": "github.com/golang/tour",
-    "issue-title": "tour: [اكتب وصف موجز]",
-    "issue-message":
-      "غير العنوان في الأعلى لتشرح مشكلتك وتضيف تعليق، مضيفًا الكود إذا احتجت",
-    context: "السياق"
+    'github-repo': "github.com/golang/tour",
+    'issue-title': "tour: [اكتب وصف موجز]",
+    'issue-message': "غير العنوان في الأعلى لتشرح مشكلتك وتضيف تعليق، مضيفًا الكود إذا احتجت",
+    'context': "السياق"
   })
   // Config for codemirror plugin
   .value("ui.config", {
